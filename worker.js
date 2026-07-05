@@ -132,7 +132,7 @@ function postPageHtml(post) {
   .nav__logo .dot{ width:8px; height:8px; border-radius:50%; background:var(--teal); }
   .nav__back{ font-size:.85rem; color:var(--slate); text-decoration:none; }
   .nav__back:hover{ color:var(--teal-deep); }
-  .content{ padding:160px 0 100px; }
+  .content{ padding-top:160px; padding-bottom:100px; }
   .post__tag{ display:inline-block; font-family:var(--font-mono); font-size:.72rem; font-weight:600; color:var(--teal-deep);
     background:rgba(14,124,134,.09); padding:6px 14px; border-radius:99px; margin-bottom:20px; }
   .post__title{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,4vw,2.4rem); letter-spacing:-.02em; margin-bottom:16px; }
