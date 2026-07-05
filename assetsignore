@@ -1,0 +1,6 @@
+.git
+.gitignore
+wrangler.jsonc
+worker.js
+schema.sql
+functions
