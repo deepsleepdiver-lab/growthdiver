@@ -179,6 +179,7 @@ function sitemapXml(posts, baseUrl) {
     { loc: `${baseUrl}/blog.html`, freq: 'weekly', pri: '0.9' },
     { loc: `${baseUrl}/portfolio.html`, freq: 'monthly', pri: '0.8' },
     { loc: `${baseUrl}/contact.html`, freq: 'monthly', pri: '0.6' },
+    { loc: `${baseUrl}/privacy.html`, freq: 'yearly', pri: '0.3' },
   ];
   const postEntries = posts.map(p => `  <url>
     <loc>${baseUrl}/blog/${p.id}</loc>
