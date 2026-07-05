@@ -172,6 +172,34 @@ function notFoundPageHtml() {
   </body></html>`;
 }
 
+function sitemapXml(posts, baseUrl) {
+  const staticPages = [
+    { loc: `${baseUrl}/`, freq: 'weekly', pri: '1.0' },
+    { loc: `${baseUrl}/about.html`, freq: 'monthly', pri: '0.8' },
+    { loc: `${baseUrl}/blog.html`, freq: 'weekly', pri: '0.9' },
+    { loc: `${baseUrl}/portfolio.html`, freq: 'monthly', pri: '0.8' },
+    { loc: `${baseUrl}/contact.html`, freq: 'monthly', pri: '0.6' },
+  ];
+  const postEntries = posts.map(p => `  <url>
+    <loc>${baseUrl}/blog/${p.id}</loc>
+    <lastmod>${(p.updated_at || p.created_at || '').slice(0, 10)}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`).join('\n');
+
+  const staticEntries = staticPages.map(p => `  <url>
+    <loc>${p.loc}</loc>
+    <changefreq>${p.freq}</changefreq>
+    <priority>${p.pri}</priority>
+  </url>`).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticEntries}
+${postEntries}
+</urlset>`;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -179,6 +207,22 @@ export default {
     const method = request.method;
 
     try {
+      // ── 실시간 sitemap.xml (발행된 글 자동 포함) ──
+      if (path === '/sitemap.xml' && method === 'GET') {
+        let posts = [];
+        try {
+          const { results } = await env.DB.prepare(
+            `SELECT id, updated_at, created_at FROM posts WHERE status = 'published' ORDER BY created_at DESC`
+          ).all();
+          posts = results;
+        } catch (_) {
+          posts = []; // DB 조회 실패해도 정적 페이지만 담은 유효한 sitemap은 반환
+        }
+        return new Response(sitemapXml(posts, 'https://growthdiver.kr'), {
+          headers: { 'Content-Type': 'application/xml; charset=utf-8' },
+        });
+      }
+
       // ── SSR 블로그 글 페이지 (GEO/SEO용 서버 렌더링) ──
       const blogPageMatch = path.match(/^\/blog\/(\d+)$/);
       if (blogPageMatch && method === 'GET') {

@@ -6,6 +6,7 @@
 
 <title>GrowthDiver — 신희정 | AI 기반 그로스 마케팅 컨설팅</title>
 <meta name="description" content="얕은 마케팅은 하지 않습니다. AI로 실험하고 데이터로 증명하는 그로스 마케터 신희정의 컨설팅 · 실험 기록 · 포트폴리오.">
+<meta name="keywords" content="그로스마케팅, GEO, 생성형 엔진 최적화, AI 마케팅 컨설팅, 퍼포먼스 마케팅, 콘텐츠 마케팅, CRM 마케팅, 그로스다이버, 신희정">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://growthdiver.kr/">
 
@@ -29,6 +30,55 @@
   },
   "areaServed": "KR",
   "serviceType": ["퍼포먼스 마케팅", "GEO 최적화", "콘텐츠 마케팅", "CRM 마케팅", "그로스 컨설팅"]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "GrowthDiver는 어떤 서비스를 제공하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GrowthDiver는 데이터 분석과 AI 실험을 기반으로 그로스마케팅 전략을 설계하는 1인 컨설팅 브랜드입니다. 퍼포먼스 마케팅, GEO(생성형 엔진 최적화), 콘텐츠 마케팅, CRM 마케팅, 그로스 PM을 아우르는 통합 마케팅 컨설팅을 제공합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "GEO(생성형 엔진 최적화)란 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GEO(Generative Engine Optimization)는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 검색·답변 엔진에서 브랜드가 직접 언급되고 인용되도록 콘텐츠와 구조를 최적화하는 전략입니다. 기존 SEO가 검색 결과 노출에 집중한다면, GEO는 AI가 실제로 답변 안에서 브랜드를 추천하게 만드는 것을 목표로 합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "그로스마케팅 컨설팅은 누구에게 필요한가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "신규 유저 획득 비용을 줄이고 싶은 스타트업, AI 검색 노출을 늘리고 싶은 브랜드, 데이터 기반으로 마케팅 의사결정을 하고 싶은 팀에게 적합합니다. 특히 광고비 효율화와 AI 시대 검색 대응이 동시에 필요한 기업에게 유효합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI를 활용한 마케팅 컨설팅은 기존 마케팅과 무엇이 다른가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "기존 마케팅은 매체 집행과 크리에이티브 제작에 외부 리소스가 필요하지만, AI 기반 마케팅은 기획부터 실행, 자동화된 성과 측정까지 한 명이 빠르게 실험하고 검증할 수 있습니다. GrowthDiver는 이 방식을 Blindex GEO 실험을 통해 실제로 증명하고 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "GrowthDiver에 컨설팅을 문의하려면 어떻게 해야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "홈페이지의 문의하기 페이지에서 간단한 문의 폼을 작성하시면 확인 후 빠르게 답변드립니다. 이메일(twa03165@gmail.com)로도 직접 연락하실 수 있습니다."
+      }
+    }
+  ]
 }
 </script>
 
@@ -114,20 +164,20 @@
   }
   .nav__links a:hover{ color:var(--ink); transform:translateY(-1px); }
   .nav__links a:hover::after{ transform:scaleX(1); }
-  .nav__cta{
+  a.nav__cta{
     font-size:.85rem; font-weight:600; color:var(--white) !important;
-    background:var(--abyss); padding:14px 40px; border-radius:99px;
+    background:var(--abyss); padding:11px 26px !important; border-radius:99px;
     white-space:nowrap; position:relative; overflow:hidden;
     transition:background .35s cubic-bezier(.16,1,.3,1), transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1);
   }
-  .nav__cta::before{
+  a.nav__cta::before{
     content:''; position:absolute; top:0; left:-130%; width:60%; height:100%;
     background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
     transform:skewX(-20deg); transition:left .7s ease;
   }
-  .nav__cta:hover::before{ left:140%; }
-  .nav__cta:hover{ background:var(--teal-deep); transform:translateY(-2px); box-shadow:0 10px 24px rgba(11,22,38,.25); }
-  .nav__cta::after{ display:none; }
+  a.nav__cta:hover::before{ left:140%; }
+  a.nav__cta:hover{ background:var(--teal-deep); transform:translateY(-2px); box-shadow:0 10px 24px rgba(11,22,38,.25); }
+  a.nav__cta::after{ display:none; }
   .nav__burger{ display:none; }
 
   @media (max-width:860px){
@@ -369,6 +419,30 @@
   .footer__links a{ font-size:.8rem; color:rgba(255,255,255,.45); transition:color .2s; }
   .footer__links a:hover{ color:var(--white); }
 
+  /* ───────── FAQ ───────── */
+  .faq{ background:var(--bg-soft); }
+  .faq__list{ margin-top:48px; max-width:760px; }
+  .faq__item{
+    background:var(--white); border:1px solid var(--line); border-radius:16px;
+    margin-bottom:14px; overflow:hidden;
+    transition:border-color .3s ease;
+  }
+  .faq__item:hover{ border-color:var(--teal); }
+  .faq__q{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 26px; cursor:pointer; font-weight:700; font-size:.98rem; color:var(--ink);
+  }
+  .faq__icon{
+    font-family:var(--font-mono); color:var(--teal); font-size:1.1rem; flex-shrink:0; margin-left:16px;
+    transition:transform .3s cubic-bezier(.16,1,.3,1);
+  }
+  .faq__item.open .faq__icon{ transform:rotate(45deg); }
+  .faq__a{
+    max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.16,1,.3,1);
+  }
+  .faq__item.open .faq__a{ max-height:300px; }
+  .faq__a-inner{ padding:0 26px 22px; font-size:.9rem; color:var(--slate); line-height:1.75; }
+
   /* reveal on scroll — apple-style blur/scale reveal */
   .reveal{
     opacity:0; transform:translateY(36px) scale(.97); filter:blur(6px);
@@ -557,6 +631,36 @@
   </div>
 </section>
 
+<!-- FAQ (GEO 핵심 — AI 추출용 정의문 + FAQPage 스키마) -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <p class="section__eyebrow">FAQ</p>
+    <h2 class="section__title">자주 묻는 질문</h2>
+    <div class="faq__list">
+      <div class="faq__item reveal">
+        <div class="faq__q"><span>GrowthDiver는 어떤 서비스를 제공하나요?</span><span class="faq__icon">+</span></div>
+        <div class="faq__a"><div class="faq__a-inner">GrowthDiver는 데이터 분석과 AI 실험을 기반으로 그로스마케팅 전략을 설계하는 1인 컨설팅 브랜드입니다. 퍼포먼스 마케팅, GEO(생성형 엔진 최적화), 콘텐츠 마케팅, CRM 마케팅, 그로스 PM을 아우르는 통합 마케팅 컨설팅을 제공합니다.</div></div>
+      </div>
+      <div class="faq__item reveal">
+        <div class="faq__q"><span>GEO(생성형 엔진 최적화)란 무엇인가요?</span><span class="faq__icon">+</span></div>
+        <div class="faq__a"><div class="faq__a-inner">GEO(Generative Engine Optimization)는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 검색·답변 엔진에서 브랜드가 직접 언급되고 인용되도록 콘텐츠와 구조를 최적화하는 전략입니다. 기존 SEO가 검색 결과 노출에 집중한다면, GEO는 AI가 실제로 답변 안에서 브랜드를 추천하게 만드는 것을 목표로 합니다.</div></div>
+      </div>
+      <div class="faq__item reveal">
+        <div class="faq__q"><span>그로스마케팅 컨설팅은 누구에게 필요한가요?</span><span class="faq__icon">+</span></div>
+        <div class="faq__a"><div class="faq__a-inner">신규 유저 획득 비용을 줄이고 싶은 스타트업, AI 검색 노출을 늘리고 싶은 브랜드, 데이터 기반으로 마케팅 의사결정을 하고 싶은 팀에게 적합합니다. 특히 광고비 효율화와 AI 시대 검색 대응이 동시에 필요한 기업에게 유효합니다.</div></div>
+      </div>
+      <div class="faq__item reveal">
+        <div class="faq__q"><span>AI를 활용한 마케팅 컨설팅은 기존 마케팅과 무엇이 다른가요?</span><span class="faq__icon">+</span></div>
+        <div class="faq__a"><div class="faq__a-inner">기존 마케팅은 매체 집행과 크리에이티브 제작에 외부 리소스가 필요하지만, AI 기반 마케팅은 기획부터 실행, 자동화된 성과 측정까지 한 명이 빠르게 실험하고 검증할 수 있습니다. GrowthDiver는 이 방식을 Blindex GEO 실험을 통해 실제로 증명하고 있습니다.</div></div>
+      </div>
+      <div class="faq__item reveal">
+        <div class="faq__q"><span>GrowthDiver에 컨설팅을 문의하려면 어떻게 해야 하나요?</span><span class="faq__icon">+</span></div>
+        <div class="faq__a"><div class="faq__a-inner">홈페이지의 문의하기 페이지에서 간단한 문의 폼을 작성하시면 확인 후 빠르게 답변드립니다. 이메일(twa03165@gmail.com)로도 직접 연락하실 수 있습니다.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- BLOG (다이빙 로그) -->
 <section id="blog">
   <div class="wrap">
@@ -642,6 +746,13 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold:0.15 });
   revealEls.forEach(el => io.observe(el));
+
+  // FAQ 아코디언
+  document.querySelectorAll('.faq__item').forEach(item => {
+    item.querySelector('.faq__q').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
 
   // ── Live GEO stats — fetches public JSON from the GEO dashboard ──
   (async function loadGeoStats(){
