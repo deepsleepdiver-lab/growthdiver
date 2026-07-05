@@ -440,7 +440,7 @@
     </p>
     <div class="hero__actions">
       <a href="portfolio.html" class="btn btn--primary">포트폴리오 보기</a>
-      <a href="mailto:twa03165@gmail.com" class="btn btn--ghost">컨설팅 문의</a>
+      <a href="contact.html" class="btn btn--ghost">컨설팅 문의</a>
     </div>
   </div>
 </header>
@@ -695,7 +695,7 @@
       if (!posts.length) return; // 정적 fallback 카드 유지
       const grid = document.getElementById('homeBlogGrid');
       grid.innerHTML = posts.map((p, i) => `
-        <a href="post.html?id=${p.id}" class="blog__card reveal in" style="display:block; transition-delay:${i*0.08}s">
+        <a href="/blog/${p.id}" class="blog__card reveal in" style="display:block; transition-delay:${i*0.08}s">
           <div class="blog__date">${CAT_LABEL[p.category] || p.category || ''}</div>
           <div class="blog__title">${esc(p.title)}</div>
           <div class="blog__excerpt">${esc(p.excerpt || '')}</div>

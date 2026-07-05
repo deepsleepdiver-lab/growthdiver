@@ -124,7 +124,19 @@
   .preview__title{ font-weight:700; font-size:1.05rem; margin-bottom:10px; }
   .preview__excerpt{ font-size:.86rem; color:var(--slate); margin-bottom:18px; }
   .preview__content{ font-size:.88rem; line-height:1.85; }
-  .preview__content p{ margin-bottom:14px; }
+  .toolbar{ display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+  .tb-btn{
+    font-size:.78rem; font-weight:600; padding:6px 12px; border:1px solid var(--line); border-radius:8px;
+    background:var(--white); cursor:pointer; color:var(--ink); transition:all .2s ease;
+  }
+  .tb-btn:hover{ border-color:var(--teal); color:var(--teal-deep); }
+  .tb-btn.uploading{ opacity:.5; pointer-events:none; }
+
+  .preview__content h2{ font-size:1.05rem; font-weight:700; margin:20px 0 8px; }
+  .preview__content h3{ font-size:.96rem; font-weight:700; margin:16px 0 6px; }
+  .preview__content ul{ margin:0 0 14px 20px; }
+  .preview__content li{ margin-bottom:4px; }
+  .preview__content img{ max-width:100%; border-radius:8px; margin:8px 0 14px; display:block; }
   .preview__empty{ color:var(--slate); font-size:.85rem; }
 
   /* messages */
@@ -213,8 +225,17 @@
               <textarea id="fExcerpt" rows="2" placeholder="목록에서 보여질 한두 줄 요약"></textarea>
 
               <label>본문</label>
-              <textarea id="fContent" rows="14" placeholder="본문 내용을 입력하세요. 빈 줄로 문단을 구분하고, **강조**로 볼드 처리할 수 있습니다."></textarea>
-              <div class="editor__hint">빈 줄 = 문단 구분 · **텍스트** = 굵게</div>
+              <div class="toolbar">
+                <button type="button" class="tb-btn" data-wrap="**">B</button>
+                <button type="button" class="tb-btn" data-wrap="*" style="font-style:italic">I</button>
+                <button type="button" class="tb-btn" data-prefix="## ">H2</button>
+                <button type="button" class="tb-btn" data-prefix="### ">H3</button>
+                <button type="button" class="tb-btn" data-prefix="- ">목록</button>
+                <button type="button" class="tb-btn" id="imgBtn">🖼 이미지</button>
+                <input type="file" id="imgInput" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none">
+              </div>
+              <textarea id="fContent" rows="14" placeholder="본문 내용을 입력하세요."></textarea>
+              <div class="editor__hint">빈 줄 = 문단 구분 · **굵게** · *기울임* · ## 제목2 · ### 제목3 · - 목록 · 이미지 버튼으로 사진 첨부</div>
 
               <div class="editor__actions">
                 <button class="btn btn--ghost" id="cancelEditBtn">취소</button>
@@ -293,15 +314,85 @@
     });
   });
 
-  // ── Markdown-lite renderer (for preview + public post page) ──
+  // ── Markdown-lite renderer (확장판: 제목, 목록, 이미지, 링크 지원) ──
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function inline(s){
+    return esc(s)
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>');
+  }
   function renderContent(text){
     if (!text) return '<span class="preview__empty">본문을 입력하면 여기에 미리보기가 표시됩니다.</span>';
-    const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return text.split(/\n\s*\n/).map(para => {
-      let p = esc(para.trim()).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-      return `<p>${p}</p>`;
+    return text.split(/\n\s*\n/).map(block => {
+      const trimmed = block.trim();
+      if (!trimmed) return '';
+      if (/^###\s/.test(trimmed)) return `<h3>${inline(trimmed.replace(/^###\s/, ''))}</h3>`;
+      if (/^##\s/.test(trimmed)) return `<h2>${inline(trimmed.replace(/^##\s/, ''))}</h2>`;
+      const lines = trimmed.split('\n');
+      if (lines.every(l => /^-\s+/.test(l.trim()))) {
+        const items = lines.map(l => `<li>${inline(l.trim().replace(/^-\s+/, ''))}</li>`).join('');
+        return `<ul>${items}</ul>`;
+      }
+      return `<p>${inline(trimmed).replace(/\n/g, '<br>')}</p>`;
     }).join('');
   }
+
+  // ── 서식 툴바 ──
+  const contentArea = document.getElementById('fContent');
+  document.querySelectorAll('.tb-btn[data-wrap]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const w = btn.dataset.wrap;
+      const start = contentArea.selectionStart, end = contentArea.selectionEnd;
+      const sel = contentArea.value.slice(start, end) || '텍스트';
+      contentArea.value = contentArea.value.slice(0, start) + w + sel + w + contentArea.value.slice(end);
+      contentArea.focus();
+      updatePreview();
+    });
+  });
+  document.querySelectorAll('.tb-btn[data-prefix]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = btn.dataset.prefix;
+      const start = contentArea.selectionStart;
+      const lineStart = contentArea.value.lastIndexOf('\n', start - 1) + 1;
+      contentArea.value = contentArea.value.slice(0, lineStart) + p + contentArea.value.slice(lineStart);
+      contentArea.focus();
+      updatePreview();
+    });
+  });
+
+  // ── 이미지 업로드 ──
+  document.getElementById('imgBtn').addEventListener('click', () => document.getElementById('imgInput').click());
+  document.getElementById('imgInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const imgBtn = document.getElementById('imgBtn');
+    imgBtn.classList.add('uploading');
+    imgBtn.textContent = '업로드 중...';
+    try {
+      const res = await fetch(`${API}/upload`, {
+        method: 'POST',
+        headers: { 'Content-Type': file.type },
+        body: file,
+      });
+      const data = await res.json();
+      if (res.ok && data.url) {
+        const start = contentArea.selectionStart;
+        const insert = `![이미지](${data.url})`;
+        contentArea.value = contentArea.value.slice(0, start) + insert + contentArea.value.slice(start);
+        updatePreview();
+      } else {
+        alert(data.error || '이미지 업로드에 실패했습니다.');
+      }
+    } catch (err) {
+      alert('업로드 중 오류가 발생했습니다.');
+    } finally {
+      imgBtn.classList.remove('uploading');
+      imgBtn.textContent = '🖼 이미지';
+      e.target.value = '';
+    }
+  });
 
   const CAT_LABEL = { geo:'GEO 실험', ai:'AI 자동화', marketing:'마케팅 인사이트' };
 

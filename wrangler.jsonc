@@ -5,6 +5,19 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
-  }
+    "run_worker_first": ["/api/*", "/blog/*", "/images/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "growthdiver-db",
+      "database_id": "073ddf6d-24fc-4e6a-8290-10a7f9e036d1"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "IMAGES",
+      "bucket_name": "growthdiver-images"
+    }
+  ]
 }
