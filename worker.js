@@ -92,7 +92,7 @@ function postPageHtml(post) {
     description: post.excerpt || stripMdForDescription(post.content, 300),
     datePublished: post.created_at,
     dateModified: post.updated_at,
-    author: { '@type': 'Person', name: '신희정' },
+    author: { '@type': 'Organization', name: 'GrowthDiver' },
     publisher: { '@type': 'Organization', name: 'GrowthDiver' },
     mainEntityOfPage: canonical,
   });
