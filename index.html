@@ -864,7 +864,7 @@
     // ① 하강: 스크롤 진행률만큼 히어로와 Philosophy 배경이 함께 수면 → 심해로 전환
     //    (텍스트는 항상 흰색 — 배경이 어두워지면서 자연스럽게 드러남)
     if (heroDepth && heroEl) {
-      const p = Math.min(Math.max(window.scrollY / (heroEl.offsetHeight * 0.92), 0), 1);
+      const p = Math.min(Math.max(window.scrollY / (heroEl.offsetHeight * 0.7), 0), 1);
       heroDepth.style.opacity = p;
       if (philEl) {
         philEl.style.setProperty('--phil-bg', mix(C_BG, C_ABYSS, p));
@@ -875,7 +875,7 @@
     if (divePath && diveWrap) {
       const r = diveWrap.getBoundingClientRect();
       const vh = window.innerHeight;
-      const p = Math.min(Math.max((vh * 0.92 - r.top) / (vh * 0.6), 0), 1);
+      const p = Math.min(Math.max((vh * 0.78 - r.top) / (vh * 0.46), 0), 1);
       divePath.style.strokeDashoffset = pathLen * (1 - p);
       diveNodes.forEach((n, i) => n.classList.toggle('lit', p >= NODE_T[i]));
       methodCells.forEach((c, i) => c.classList.toggle('lit', p >= NODE_T[i]));
